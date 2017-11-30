@@ -3,6 +3,8 @@ var arrayTasks = {
 	concat: function (arr1, arr2) {
 		arr1.push.apply(arr1, arr2);
 		return arr1;
+
+        // could have done return arr1.concat(arr2);
 	},
 
 	insertAt: function (arr, itemToAdd, index) {
@@ -11,7 +13,7 @@ var arrayTasks = {
 	},
 
 	square: function (arr) {
-		newArray = [];
+		var newArray = [];
 
 		arr.forEach(function(element){
 			newElement = element * element;
@@ -19,30 +21,53 @@ var arrayTasks = {
 		})
 
 		return newArray;
+
+		//could have done
+		// var newArray = arr.map(function(element){
+		// return element * element;
+        //
+		// })
 	},
 
 	sum: function (arr) {
-		var sum = arr.reduce((x, y) => x + y);
-		return sum;
+		return arr.reduce(function(acc, currentValue) {
+			 return acc + currentValue;
+		 }, 0);
 	},
 
 	findDuplicates: function (arr) {
-		newArray = [];
+		var newArray = [];
 		//should probably sort first then do the for each but the test is already sorted
+		// arr.forEach(function(element, index){
+		// 	if(arr.indexOf(element, index + 1) > - 1){
+		// 		if(newArray.indexOf(element) === -1){
+		// 			newArray.push(element);
+		// 		}
+		// 	}
+		// });
+        //
+		// return newArray;
 
-		arr.forEach(function(element, index){
-			if(arr.indexOf(element, index + 1) > - 1){
-				if(newArray.indexOf(element) === -1){
-					newArray.push(element);
-				}
+// alternate solution
+		// return arr.filter(function(item, index){
+		// 	var restOfArrayIncludes = arr.slice(index+1).includes(item);
+		// 	var isFirstInstance = arr.indexOf(item) === 1;
+		// 	return restOfArrayIncludes && isFirstInstance;
+		// })
+
+// alternate
+		var tempArray = [];
+		for(var item of arr){
+			if(arr.includes(item, item) && !tempArray.includes(item)){
+				tempArray.push(item);
 			}
-		})
+		}
+		return tempArray;
 
-		return newArray;
 	},
 
 	removeAndClone: function (arr, valueToRemove) {
-		newArray = [];
+		var newArray = [];
 
 		arr.forEach(function(element, index){
 			if(element === valueToRemove){
@@ -55,7 +80,7 @@ var arrayTasks = {
 	},
 
 	findIndexesOf: function (arr, itemToFind) {
-		newArray = [];
+		var newArray = [];
 
 		arr.forEach(function(element, index){
 			if(element === itemToFind){
@@ -67,7 +92,7 @@ var arrayTasks = {
 	},
 
 	sumOfAllEvenNumbersSquared: function (arr) {
-		total = 0;
+		var total = 0;
 
 		arr.forEach(function(element, index){
 			if(element % 2 == 0){
